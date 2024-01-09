@@ -1,0 +1,1 @@
+docker logs -f --tail 2000 x1000-server-dev
