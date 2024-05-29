@@ -1,15 +1,6 @@
-import {
-  COMMAND_KEYS,
-  EWalletType,
-  buildPhotoOptions,
-} from '@/telegram-bot/constants';
+import { EWalletType, buildPhotoOptions } from '@/telegram-bot/constants';
 import { PhotoResponse } from '@/telegram-bot/types';
-import {
-  buildCommand,
-  createMenuButton,
-  createMenuLabel,
-  insertNewlines,
-} from '@/telegram-bot/utils';
+import { createMenuLabel, insertNewlines } from '@/telegram-bot/utils';
 import * as fs from 'fs';
 import { ButtonText } from 'lang/soybot/en/button';
 import path from 'path';
@@ -21,7 +12,7 @@ export class MainPage implements PhotoPage {
     private readonly walletInfos: any[],
   ) {}
 
-  build(isExistPosition?: boolean): PhotoResponse {
+  build(): PhotoResponse {
     const mapBalances = this.walletInfos?.map((item) => {
       return `<b><a href="https://solscan.io/account/${
         item.address
@@ -40,55 +31,7 @@ export class MainPage implements PhotoPage {
     const photo = fs.readFileSync(imageFilePath);
 
     const menu = buildPhotoOptions(
-      [
-        [createMenuLabel(ButtonText.main.title)],
-        [
-          createMenuButton(
-            ButtonText.main.buy,
-            isExistPosition
-              ? COMMAND_KEYS.RECENT_SEARCH
-              : COMMAND_KEYS.BUY_CONTRACT_CUSTOM,
-          ),
-          createMenuButton(ButtonText.main.sell, COMMAND_KEYS.SELL),
-        ],
-
-        [
-          createMenuButton(
-            ButtonText.main.autoBuy,
-            COMMAND_KEYS.AUTO_BUY_OPTIONS,
-          ),
-          createMenuButton(
-            ButtonText.main.autoSell,
-            COMMAND_KEYS.AUTO_SELL_OPTIONS,
-          ),
-        ],
-        [
-          createMenuButton(
-            ButtonText.main.bridgeToSol,
-            COMMAND_KEYS.COMING_SOON,
-          ),
-          createMenuButton(ButtonText.main.snipers, COMMAND_KEYS.COMING_SOON),
-        ],
-        [
-          createMenuButton(
-            ButtonText.main.wallet,
-            buildCommand(COMMAND_KEYS.WALLET, {}),
-          ),
-          createMenuButton(ButtonText.main.settings, COMMAND_KEYS.SETTINGS),
-        ],
-        [
-          createMenuButton(
-            ButtonText.main.watchlist,
-            COMMAND_KEYS.WATCHLIST_OPTIONS,
-          ),
-
-          createMenuButton(
-            ButtonText.main.tokenAlerts,
-            undefined,
-            'https://t.me/SoyBotTokenAlerts',
-          ),
-        ],
-      ],
+      [[createMenuLabel(ButtonText.main.title)]],
       text,
     );
 
