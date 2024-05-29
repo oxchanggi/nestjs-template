@@ -4,8 +4,6 @@ import { TelegramBot } from '../telegram-bot';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { QUEUE_NAME, QUEUE_PROCESSOR } from '../constants/queue';
-import { AutoBuyDCAState } from '../types';
-import { parseTime } from '../utils/time';
 import { Handler } from './handler';
 
 @Injectable()

@@ -15,8 +15,9 @@ import { ScheduleModule } from '@nestjs/schedule';
 import Redis from 'ioredis';
 import { QUEUE_NAME } from './constants/queue';
 import { TestHandler } from './handlers/test.handler';
+import { StartHandler } from './handlers/start.handler';
 
-const handlers = [TestHandler];
+const handlers = [TestHandler, StartHandler];
 
 const services = [HandlerService];
 

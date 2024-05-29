@@ -1,12 +1,4 @@
 import { EUserAction } from '../constants';
-import {
-  IWalletOrder,
-  IWalletToken,
-  Order,
-  IWalletOrderDCABuy,
-  WalletPosition,
-  IWalletOrderDCASell,
-} from '../constants/interface';
 
 export type TelegramBotState = {
   language_code?: string;
@@ -33,123 +25,8 @@ export type TelegramBotState = {
   data?: any;
 };
 
-export type OrderWallet = {
-  name?: string;
-  status?: boolean;
-  balance?: number;
-  address?: string;
-};
-
-export type BuyOrderState = {
-  wallets?: { [address: string]: OrderWallet };
-  amount?: string;
-  quote_amount?: string;
-  price_impact?: string;
-  contract_address?: string;
-  submited?: boolean;
-  slippage?: string;
-  isMev?: boolean;
-  token_info?: any;
-  balances?: any;
-};
-
-export type LimitOrderState = {
-  wallets?: { [address: string]: OrderWallet };
-  amount?: string;
-  amountPercent?: string;
-  quote_amount?: string;
-  price_impact?: string;
-  contract_address?: string;
-  submited?: boolean;
-  token_info?: any;
-  balances?: any;
-  priceChange?: string;
-  fixPrice?: string;
-  expiredTime?: string;
-  mode: 'percent' | 'value';
-};
-
-export interface AutoBuyDCAState {
-  wallets?: { [address: string]: OrderWallet };
-  amount?: string;
-  quote_amount?: string;
-  price_impact?: string;
-  contract_address?: string;
-  submited?: boolean;
-  token_info?: any;
-  balances?: any;
-  intervalTime?: string;
-  duration?: string;
-  maxPrice?: string;
-}
-
-export interface AutoSellDCAState {
-  wallets?: { [address: string]: OrderWallet };
-  amountPercent?: string;
-  quote_amount?: string;
-  price_impact?: string;
-  contract_address?: string;
-  submited?: boolean;
-  token_info?: any;
-  balances?: any;
-  intervalTime?: string;
-  duration?: string;
-  minPrice?: string;
-}
-
-export type SellOrderState = {
-  wallets?: { [address: string]: OrderWallet };
-  amountPercent?: string;
-  submited?: boolean;
-  amount?: number;
-  slippage?: string;
-  tokenIndexList?: number[];
-  holdingTokens?: IWalletToken[];
-};
-
-export type AutoBuyCancelOrdersState = {
-  orders?: IWalletOrder[];
-};
-
-export type AutoBuyDCACancelOrdersState = {
-  orders?: IWalletOrderDCABuy[];
-};
-
-export type AutoSellDCACancelOrdersState = {
-  orders?: IWalletOrderDCASell[];
-};
-
-export type WithdrawOrderState = {
-  fromWallet?: string;
-  toWallet?: string;
-  toCustom?: string;
-  submited?: boolean;
-  amount?: number;
-};
-
-export type TransferTokenState = {
-  fromWallet?: string;
-  toWallet?: string;
-  toCustom?: string;
-  submited?: boolean;
-  amountPercent?: number;
-  amount?: number;
-  tokenIndex?: number;
-};
-
-export type SellInTokenMonitor = {
-  amountPercent?: number;
-  muteToken?: boolean;
-  muteAll?: boolean;
-  position?: WalletPosition;
-  isSubmitted?: boolean;
-  isSubmittedMuteToken?: boolean;
-  isSubmittedMuteAll?: boolean;
-};
-
 export type GlobalConfigState = {
   isMev?: boolean;
-  wallets?: { [address: string]: OrderWallet };
   buyTokenAmount?: string;
   slippage?: string;
   sellTokenAmountPercent?: string;

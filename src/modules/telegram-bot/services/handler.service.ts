@@ -1,10 +1,8 @@
 import { COMMAND_KEYS } from '@/telegram-bot/constants/command-keys';
-import {
-  Handler,
-  StartHandler,
-  TestHandler,
-} from '@/telegram-bot/handlers';
 import { Inject, Injectable } from '@nestjs/common';
+import { StartHandler } from '../handlers/start.handler';
+import { TestHandler } from '../handlers/test.handler';
+import { Handler } from '../handlers/handler';
 
 @Injectable()
 export class HandlerService {

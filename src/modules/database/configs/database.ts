@@ -7,15 +7,15 @@ const clientCertStag = [];
 const clientKeyStag = [];
 const serverCaStag = [];
 
-const clientCertProd = fs.readFileSync(
-  path.join(__dirname, '../../../ssl/database/prod/client-cert.pem'),
-);
-const clientKeyProd = fs.readFileSync(
-  path.join(__dirname, '../../../ssl/database/prod/client-key.pem'),
-);
-const serverCaProd = fs.readFileSync(
-  path.join(__dirname, '../../../ssl/database/prod/server-ca.pem'),
-);
+// const clientCertProd = fs.readFileSync(
+//   path.join(__dirname, '../../../ssl/database/prod/client-cert.pem'),
+// );
+// const clientKeyProd = fs.readFileSync(
+//   path.join(__dirname, '../../../ssl/database/prod/client-key.pem'),
+// );
+// const serverCaProd = fs.readFileSync(
+//   path.join(__dirname, '../../../ssl/database/prod/server-ca.pem'),
+// );
 
 export const configDb = registerAs(
   'db',
@@ -29,21 +29,21 @@ export const configDb = registerAs(
     synchronize: Boolean(process.env.DB_SYNC) || false,
     autoLoadEntities: true,
     logging: false,
-    ssl:
-      process.env.APP_ENV == 'production'
-        ? {
-            ca:
-              process.env.APP_ENV == 'production' ? serverCaProd : serverCaStag,
-            key:
-              process.env.APP_ENV == 'production'
-                ? clientKeyProd
-                : clientKeyStag,
-            cert:
-              process.env.APP_ENV == 'production'
-                ? clientCertProd
-                : clientCertStag,
-            rejectUnauthorized: false,
-          }
-        : null,
+    // ssl:
+    //   process.env.APP_ENV == 'production'
+    //     ? {
+    //         ca:
+    //           process.env.APP_ENV == 'production' ? serverCaProd : serverCaStag,
+    //         key:
+    //           process.env.APP_ENV == 'production'
+    //             ? clientKeyProd
+    //             : clientKeyStag,
+    //         cert:
+    //           process.env.APP_ENV == 'production'
+    //             ? clientCertProd
+    //             : clientCertStag,
+    //         rejectUnauthorized: false,
+    //       }
+    //     : null,
   }),
 );
