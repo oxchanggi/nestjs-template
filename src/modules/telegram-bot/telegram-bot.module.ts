@@ -49,7 +49,6 @@ if (isQueue) {
     BullModule.registerQueue({
       name: QUEUE_NAME.TELEGRAM_BOT,
     }),
-    BlockchainModule,
     ConfigModule.forRoot({
       isGlobal: true,
       expandVariables: true,

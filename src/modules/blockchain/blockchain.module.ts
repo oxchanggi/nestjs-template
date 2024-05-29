@@ -8,12 +8,24 @@ import { ethers } from 'ethers';
 import { CHAINS } from '@/blockchain/configs';
 import { ERC20Factory } from './smart-contracts';
 import { LoggerModule } from '@/logger';
+import { WalletService } from './services';
+import { ConfigModule } from '@nestjs/config';
+import { configApp } from './configs/app';
+
+const services = [WalletService];
 
 @Module({
-  imports: [LoggerModule],
+  imports: [
+    LoggerModule,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      expandVariables: true,
+      load: [configApp],
+    }),
+  ],
   controllers: [],
-  providers: [],
-  exports: [],
+  providers: [...services],
+  exports: [...services],
 })
 export class BlockchainModule {
   /**
