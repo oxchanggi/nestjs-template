@@ -32,7 +32,9 @@
       "@/telegram-bot": ["modules/telegram-bot/index"],
       "@/telegram-bot/*": ["modules/telegram-bot/*"],
       "@/worker": ["modules/worker/index"],
-      "@/worker/*": ["modules/worker/*"]
+      "@/worker/*": ["modules/worker/*"],
+      "@/queue": ["modules/queue/index"],
+      "@/queue/*": ["modules/queue/*"]
     }
   },
   "include": ["src"]
