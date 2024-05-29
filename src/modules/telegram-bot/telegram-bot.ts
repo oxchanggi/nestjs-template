@@ -7,7 +7,6 @@ import {
   MAX_TIME_STATE_OUT_DATE,
   USER_INPUT,
 } from '@/telegram-bot/constants';
-import { Handler } from '@/telegram-bot/handlers';
 import { Global, Inject, Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import TelegramBotApi, {
@@ -30,7 +29,6 @@ import {
   Menu,
   PageResponse,
   PhotoResponse,
-  ReplyMarkup,
   SellInTokenMonitor,
   SellOrderState,
   TelegramBotState,
@@ -38,11 +36,10 @@ import {
   WithdrawOrderState,
 } from './types';
 import Redis from 'ioredis';
-import { LoggerService } from '@/database/services';
 import { InjectQueue } from '@nestjs/bull';
 import { Queue } from 'bull';
 import { QUEUE_NAME, QUEUE_PROCESSOR } from './constants/queue';
-import _ from 'lodash';
+import { Handler } from './handlers/handler';
 
 // await this.bot.editMessagePage(page2.text, {
 //   chat_id: chatId,
@@ -64,9 +61,6 @@ export class TelegramBot {
   private botStateStore: Redis;
 
   private state: Record<string, TelegramBotState>;
-
-  @Inject(LoggerService)
-  private loggerService: LoggerService;
 
   public handlers: Record<string, Handler>;
 
@@ -698,117 +692,8 @@ export class TelegramBot {
     });
   }
 
-  setupMenuCommand() {
-    const cmd = COMMAND_KEYS.MENU;
-    this.bot.onText(/\/menu/, (msg, match) => {
-      this.addCommandToQueue(
-        cmd,
-        { ...parserMessageTelegram(msg), input: match.input },
-        {},
-      ).then();
-    });
-  }
-
-  setupWalletsCommand() {
-    const cmd = COMMAND_KEYS.WALLET;
-    this.bot.onText(/\/wallets/, (msg, match) => {
-      this.addCommandToQueue(
-        cmd,
-        { ...parserMessageTelegram(msg), input: match.input },
-        {},
-      ).then();
-    });
-  }
-
-  setupBuyCommand() {
-    this.bot.onText(/^\/buy$/, async (msg, match) => {
-      const recentSearchState: {
-        data?: string[];
-      } = await this.getStateByKey('recent_search', msg.chat.id);
-
-      const cmd =
-        !_.isEmpty(recentSearchState) && recentSearchState?.data.length > 0
-          ? COMMAND_KEYS.RECENT_SEARCH
-          : COMMAND_KEYS.BUY_CONTRACT_CUSTOM;
-
-      this.addCommandToQueue(
-        cmd,
-        { ...parserMessageTelegram(msg), input: match.input },
-        {},
-      ).then();
-    });
-  }
-
-  setupBuyLimitCommand() {
-    this.bot.onText(/^\/buylimit$/, async (msg, match) => {
-      const cmd = COMMAND_KEYS.AUTO_BUY_TOKEN_CUSTOM;
-
-      this.addCommandToQueue(
-        cmd,
-        { ...parserMessageTelegram(msg), input: match.input },
-        {},
-      ).then();
-    });
-  }
-
-  setupSellCommand() {
-    const cmd = COMMAND_KEYS.SELL;
-    this.bot.onText(/^\/sell$/, (msg, match) => {
-      this.addCommandToQueue(
-        cmd,
-        { ...parserMessageTelegram(msg), input: match.input },
-        {},
-      ).then();
-    });
-  }
-
-  setupSellLimitCommand() {
-    this.bot.onText(/^\/selllimit$/, async (msg, match) => {
-      const cmd = COMMAND_KEYS.AUTO_SELL_TOKEN_CUSTOM;
-
-      this.addCommandToQueue(
-        cmd,
-        { ...parserMessageTelegram(msg), input: match.input },
-        {},
-      ).then();
-    });
-  }
-
-  setupPositionsCommand() {
-    const cmd = COMMAND_KEYS.YOUR_POSITIONS;
-    this.bot.onText(/\/positions/, (msg, match) => {
-      this.addCommandToQueue(
-        cmd,
-        { ...parserMessageTelegram(msg), input: match.input },
-        {},
-      ).then();
-    });
-  }
-
-  setupSettingsCommand() {
-    const cmd = COMMAND_KEYS.SETTINGS;
-    this.bot.onText(/\/settings/, (msg, match) => {
-      this.addCommandToQueue(
-        cmd,
-        { ...parserMessageTelegram(msg), input: match.input },
-        {},
-      ).then();
-    });
-  }
-
-  setupWatchlistCommand() {
-    const cmd = COMMAND_KEYS.WATCHLIST_OPTIONS;
-    this.bot.onText(/\/watchlist/, (msg, match) => {
-      this.addCommandToQueue(
-        cmd,
-        { ...parserMessageTelegram(msg), input: match.input },
-        {},
-      ).then();
-    });
-  }
-
   private setupTestCommand(callback: any) {
-    this.bot.onText(/\/test/, (msg, match) => {
+    this.bot.onText(/\/test/, (msg) => {
       callback(parserMessageTelegram(msg));
     });
   }
@@ -860,23 +745,6 @@ export class TelegramBot {
     const testHandler = this.handlers[COMMAND_KEYS.TEST];
 
     this.setupStartCommand();
-    this.setupMenuCommand();
-
-    this.setupWalletsCommand();
-
-    this.setupBuyCommand();
-
-    this.setupBuyLimitCommand();
-
-    this.setupSellCommand();
-
-    this.setupSellLimitCommand();
-
-    this.setupPositionsCommand();
-
-    this.setupSettingsCommand();
-
-    this.setupWatchlistCommand();
 
     this.userReply((msg) => {
       return this.addCommandToQueue(USER_INPUT, {}, msg);
