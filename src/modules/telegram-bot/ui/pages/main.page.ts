@@ -23,7 +23,7 @@ export class MainPage implements PhotoPage {
 
     const joinedWallet = insertNewlines(mapBalances, 1).join('');
 
-    const text = `Welcome to <b>Bot</b>, ${this.firstName}\n<b>The Fastest Sniper Bot on Solana.\nPowered by <a>$SOY</a></b>\n\nThis is your newly created Bot wallet.\nFund SOL and start trading!\n\nYou can explore more at <a href="https://t.me/verifySoybot"><b>Bot community</b></a>\n\n<b>=== Your Solana Wallets ===</b>\n${joinedWallet}`;
+    const text = `Welcome to <b>Bot</b>, ${this.firstName}\n<b>The Fastest Sniper Bot on Solana.\nPowered by <a>$SOY</a></b>\n\nThis is your newly created Bot wallet.\nFund SOL and start trading!\n\nYou can explore more at <a href=""><b>Bot community</b></a>\n\n<b>=== Your Solana Wallets ===</b>\n${joinedWallet}`;
 
     const menu = buildPhotoOptions(
       [[createMenuLabel(ButtonText.main.title)]],

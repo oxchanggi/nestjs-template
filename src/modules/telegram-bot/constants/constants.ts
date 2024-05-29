@@ -15,7 +15,4 @@ export const BASE_DEX_SCREENER_URL = 'https://dexscreener.com/solana';
 export const REVENUE_WALLET = 'H1kbqGxvcMeueH7wXAMQ3t1RG7yrQUiWNiGExSiAMajX';
 export const TRANSACTION_FEE = 1;
 
-export const SOYBOT_HANDLE =
-  process.env.APP_ENV == 'production' ? 'soy_sniperbot' : 'soy_devbot';
-
 export const GLOBAL_STATE = 'global_state';
