@@ -30,7 +30,9 @@
       "@/logger/*": ["modules/logger/*"],
       "@/shared/*": ["shared/*"],
       "@/telegram-bot": ["modules/telegram-bot/index"],
-      "@/telegram-bot/*": ["modules/telegram-bot/*"]
+      "@/telegram-bot/*": ["modules/telegram-bot/*"],
+      "@/worker": ["modules/worker/index"],
+      "@/worker/*": ["modules/worker/*"]
     }
   },
   "include": ["src"]
