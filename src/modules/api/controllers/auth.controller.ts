@@ -8,8 +8,8 @@ export class AuthController {
   @Inject(AuthService)
   private readonly authService: AuthService;
 
-  @Get('/oauth/tiktok')
-  @ApiOperation({ summary: 'Send get oauth request to login with tiktok' })
+  @Get('/oauth')
+  @ApiOperation({ summary: 'Send get oauth request to login' })
   async getOauthUrl() {
     const response = await this.authService.getOauthUrl();
     return {
