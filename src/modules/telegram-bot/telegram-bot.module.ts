@@ -1,10 +1,6 @@
 import { BlockchainModule } from '@/blockchain';
 import { DatabaseModule } from '@/database';
-import {
-  configBlockchain,
-  configQueue,
-  configTelegram,
-} from '@/telegram-bot/configs';
+import { configQueue, configTelegram } from '@/telegram-bot/configs';
 import { TelegramBotConsumer } from '@/telegram-bot/consumers/telegram-bot.consumer';
 import { HandlerService } from '@/telegram-bot/services';
 import { TelegramBot } from '@/telegram-bot/telegram-bot';
@@ -57,7 +53,7 @@ if (isQueue) {
     ConfigModule.forRoot({
       isGlobal: true,
       expandVariables: true,
-      load: [configTelegram, configBlockchain, configQueue],
+      load: [configTelegram, configQueue],
     }),
   ],
   controllers: [],

@@ -6,7 +6,7 @@ import { WorkerModule } from '@/worker';
 import { QueueModule } from '@/queue';
 import { BlockchainModule } from '@/blockchain';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { configBlockchain } from '@/telegram-bot/configs/blockchain';
+import { configBlockchain } from '@/blockchain/configs/blockchain';
 
 @Module({
   imports: [
