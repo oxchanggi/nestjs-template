@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { configQueue } from './configs';
 import { DatabaseModule } from '@/database';
-import { ApiModule } from '@/api';
 import { BullModule } from '@nestjs/bull';
 import { Consumer } from './consumers';
 import { QUEUE_NAME } from './constants/queue';
@@ -13,7 +12,6 @@ const services = [QueueService];
 
 @Module({
   imports: [
-    ApiModule,
     DatabaseModule,
     BullModule.forRootAsync({
       imports: [ConfigModule],
@@ -45,6 +43,6 @@ const services = [QueueService];
   ],
   controllers: [],
   providers: [...consumers, ...services],
-  exports: [],
+  exports: [...services],
 })
 export class QueueModule {}
