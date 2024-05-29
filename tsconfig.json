@@ -20,36 +20,18 @@
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "paths": {
-      "@/database": [
-        "modules/database/index"
-      ],
-      "@/database/*": [
-        "modules/database/*"
-      ],
-      "@/blockchain": [
-        "modules/blockchain/index"
-      ],
-      "@/blockchain/*": [
-        "modules/blockchain/*"
-      ],
-      "@/api": [
-        "modules/api/index"
-      ],
-      "@/api/*": [
-        "modules/api/*"
-      ],
-      "@/logger": [
-        "modules/logger/index"
-      ],
-      "@/logger/*": [
-        "modules/logger/*"
-      ],
-      "@/shared/*": [
-        "shared/*"
-      ]
+      "@/database": ["modules/database/index"],
+      "@/database/*": ["modules/database/*"],
+      "@/blockchain": ["modules/blockchain/index"],
+      "@/blockchain/*": ["modules/blockchain/*"],
+      "@/api": ["modules/api/index"],
+      "@/api/*": ["modules/api/*"],
+      "@/logger": ["modules/logger/index"],
+      "@/logger/*": ["modules/logger/*"],
+      "@/shared/*": ["shared/*"],
+      "@/telegram-bot": ["modules/telegram-bot/index"],
+      "@/telegram-bot/*": ["modules/telegram-bot/*"]
     }
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }
