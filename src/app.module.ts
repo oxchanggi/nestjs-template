@@ -4,6 +4,9 @@ import { ApiModule } from '@/api';
 import { TelegramBotModule } from '@/telegram-bot';
 import { WorkerModule } from '@/worker';
 import { QueueModule } from '@/queue';
+import { BlockchainModule } from '@/blockchain';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { configBlockchain } from '@/telegram-bot/configs/blockchain';
 
 @Module({
   imports: [
@@ -12,6 +15,17 @@ import { QueueModule } from '@/queue';
     TelegramBotModule,
     WorkerModule,
     QueueModule,
+    BlockchainModule.registerAsync({
+      isGlobal: true,
+      imports: [ConfigModule],
+      useFactory: (config: ConfigService) => config.get('blockchain'),
+      inject: [ConfigService],
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      expandVariables: true,
+      load: [configBlockchain],
+    }),
   ],
   controllers: [],
   providers: [],

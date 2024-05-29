@@ -11,7 +11,6 @@ import { TelegramBot } from '@/telegram-bot/telegram-bot';
 import { BullModule } from '@nestjs/bull';
 import { Module, OnApplicationBootstrap } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { ScheduleModule } from '@nestjs/schedule';
 import Redis from 'ioredis';
 import { QUEUE_NAME } from './constants/queue';
 import { TestHandler } from './handlers/test.handler';
@@ -31,7 +30,6 @@ if (isQueue) {
 @Module({
   imports: [
     DatabaseModule,
-    ScheduleModule.forRoot(),
     BullModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => {
@@ -55,12 +53,7 @@ if (isQueue) {
     BullModule.registerQueue({
       name: QUEUE_NAME.TELEGRAM_BOT,
     }),
-    BlockchainModule.registerAsync({
-      isGlobal: true,
-      imports: [ConfigModule],
-      useFactory: (config: ConfigService) => config.get('blockchain'),
-      inject: [ConfigService],
-    }),
+    BlockchainModule,
     ConfigModule.forRoot({
       isGlobal: true,
       expandVariables: true,

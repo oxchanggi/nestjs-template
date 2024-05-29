@@ -4,6 +4,6 @@ import { BlockchainOptions } from '@/blockchain';
 export const configBlockchain = registerAs(
   'blockchain',
   (): BlockchainOptions => ({
-    mainnet: Boolean(Number(process.env.IS_MAINNET || 0) == 1),
+    mainnet: Boolean(process.env.APP_ENV == 'production'),
   }),
 );
