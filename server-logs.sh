@@ -1,1 +1,1 @@
-docker logs -f --tail 2000 tma-server-dev
+docker logs -f --tail 2000 minting-bot-server-dev
