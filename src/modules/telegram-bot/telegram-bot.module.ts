@@ -48,7 +48,7 @@ if (isQueue) {
             password: password,
             tls,
           },
-        } as any;
+        };
       },
       inject: [ConfigService],
     }),
