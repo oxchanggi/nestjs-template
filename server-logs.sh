@@ -1,1 +1,1 @@
-docker logs -f --tail 2000 x1000-server-dev
+docker logs -f --tail 2000 tma-server-dev

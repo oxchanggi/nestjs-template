@@ -14,7 +14,7 @@ export class LoggerService {
     data?: object,
     context?: string,
   ) {
-    const serviceName = 'x1000_server';
+    const serviceName = 'tma_server';
     const now = convertDateToUnixTimestamp();
 
     let trace;

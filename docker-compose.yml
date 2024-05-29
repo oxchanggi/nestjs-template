@@ -1,8 +1,8 @@
-version: "3.8"
+version: '3.8'
 services:
   app:
-    image: x1000-server:1.0.0-dev
-    container_name: x1000-server-dev
+    image: tma-server:1.0.0-dev
+    container_name: tma-server-dev
     build:
       context: .
       dockerfile: docker/nest/dev.dockerfile
@@ -14,30 +14,30 @@ services:
       - .:/home/node/workspace
       - /home/node/workspace/node_modules
     networks:
-      -  x1000-network
+      - tma-network
     env_file:
       - .env.dev
     ports:
       - '8003:8003'
 
   redis:
-    container_name: x1000-redis
+    container_name: tma-redis
     image: redis
     restart: unless-stopped
     ports:
       - 6380:6379
     command: redis-server --save 20 1 --loglevel warning
     networks:
-      - x1000-network
+      - tma-network
     volumes:
-      - x1000-redis:/data
+      - tma-redis:/data
 
   database:
-    container_name: x1000-database
+    container_name: tma-database
     image: postgres:14.1
     restart: unless-stopped
     volumes:
-      - x1000-database:/var/lib/postgres
+      - tma-database:/var/lib/postgres
       - ./docker/postgres:/docker-entrypoint-initdb.d
     environment:
       POSTGRES_USER: root
@@ -45,14 +45,14 @@ services:
     ports:
       - 5432:5432
     networks:
-      - x1000-network
+      - tma-network
 
 networks:
-  x1000-network:
+  tma-network:
     driver: bridge
 
 volumes:
-  x1000-redis:
+  tma-redis:
     driver: local
-  x1000-database:
+  tma-database:
     driver: local
