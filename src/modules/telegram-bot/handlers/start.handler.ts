@@ -17,5 +17,7 @@ export class StartHandler implements Handler, OnApplicationBootstrap {
     firstName?: string;
     messageId: number;
     input?: string;
-  }) => {};
+  }) => {
+    console.log('data', data);
+  };
 }

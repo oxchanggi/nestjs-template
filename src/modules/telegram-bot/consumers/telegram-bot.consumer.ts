@@ -18,6 +18,7 @@ export class TelegramBotConsumer {
     }>,
   ) {
     const { cmd, params, data } = job.data;
+    console.log('🚀 ~ TelegramBotConsumer ~ job.data:', job.data);
 
     const handler = this.bot.handlers[cmd];
     if (handler) {

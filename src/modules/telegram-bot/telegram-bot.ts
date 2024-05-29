@@ -307,6 +307,7 @@ export class TelegramBot {
   setupStartCommand() {
     const cmd = COMMAND_KEYS.START;
     this.bot.onText(/\/start/, (msg, match) => {
+      console.log('🚀 ~ TelegramBot ~ this.bot.onText ~ msg:', msg);
       this.addCommandToQueue(
         cmd,
         { ...parserMessageTelegram(msg), input: match.input },

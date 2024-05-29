@@ -15,6 +15,7 @@ export class HandlerService {
   getHandlers(): Record<string, Handler> {
     return {
       [COMMAND_KEYS.TEST]: this.testHandler,
+      [COMMAND_KEYS.START]: this.startHandler,
     };
   }
 }
