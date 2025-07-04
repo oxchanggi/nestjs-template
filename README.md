@@ -1,73 +1,126 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NestJS Blockchain Telegram Bot Template
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A comprehensive NestJS template for building blockchain-integrated applications with Telegram bot functionality. This template provides a robust foundation for developing blockchain applications with features like Telegram bot integration, wallet management, queue processing, and more.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Features
 
-## Description
+- **Blockchain Integration**: Built-in support for blockchain operations using ethers.js, including ERC20 token interactions and wallet management
+- **Telegram Bot**: Complete Telegram bot implementation with command handlers, UI components, and state management
+- **Database Integration**: TypeORM setup with PostgreSQL for data persistence
+- **Queue System**: Bull queue implementation for handling asynchronous tasks
+- **API Endpoints**: RESTful API endpoints with authentication and health checks
+- **Swagger Documentation**: API documentation with Swagger UI
+- **Worker Module**: Background task scheduling with NestJS Schedule
+- **Docker Integration**: Docker and Docker Compose setup for easy deployment and development
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Prerequisites
+
+- Node.js (v14+)
+- pnpm
+- PostgreSQL
+- Redis (for queue system)
 
 ## Installation
 
 ```bash
-$ npm install
+# Install dependencies
+$ pnpm install
 ```
 
-## Running the app
+## Configuration
+
+Create a `.env` file in the root directory and add the necessary environment variables:
+
+```
+# App
+PORT=3000
+APP_ENV=development
+CORS_ORIGIN=http://localhost:3000
+
+# Database
+DATABASE_HOST=localhost
+DATABASE_PORT=5432
+DATABASE_USERNAME=postgres
+DATABASE_PASSWORD=postgres
+DATABASE_NAME=nestjs_template
+
+# Telegram Bot
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+
+# Blockchain
+BLOCKCHAIN_PROVIDER_URL=your_blockchain_provider_url
+BLOCKCHAIN_PRIVATE_KEY=your_blockchain_private_key
+
+# Queue
+IS_QUEUE=1
+IS_BOT=1
+```
+
+## Running the App
 
 ```bash
-# development
-$ npm run start
+# Development mode
+$ pnpm start:dev
 
-# watch mode
-$ npm run start:dev
+# Production mode
+$ pnpm start:prod
 
-# production mode
-$ npm run start:prod
+# Using Docker
+$ docker-compose up
 ```
 
-## Test
+## Docker Scripts
+
+The repository includes several convenience scripts:
 
 ```bash
-# unit tests
-$ npm run test
+# Start local environment
+$ ./start-local.sh
 
-# e2e tests
-$ npm run test:e2e
+# Restart local environment
+$ ./restart-local.sh
 
-# test coverage
-$ npm run test:cov
+# Stop all containers
+$ ./stop.sh
+
+# View server logs
+$ ./server-logs.sh
+
+# Connect to the container
+$ ./connect.sh
 ```
 
-## Support
+## Project Structure
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```
+src/
+├── app.module.ts        # Main application module
+├── main.ts              # Application entry point
+├── modules/             # Feature modules
+│   ├── api/             # API endpoints
+│   ├── blockchain/      # Blockchain integration
+│   ├── database/        # Database configuration
+│   ├── logger/          # Logging service
+│   ├── queue/           # Queue system
+│   ├── telegram-bot/    # Telegram bot implementation
+│   └── worker/          # Background task scheduling
+└── shared/              # Shared utilities and validators
+```
 
-## Stay in touch
+## Adding New Features
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+### Adding a New Telegram Bot Command
+
+1. Create a new handler in `src/modules/telegram-bot/handlers/`
+2. Register the handler in the Telegram bot module
+3. Define UI components in `src/modules/telegram-bot/ui/`
+
+### Adding a New Blockchain Interaction
+
+1. Update or add contract ABIs in `src/modules/blockchain/abi/`
+2. Create a new smart contract interface in `src/modules/blockchain/smart-contracts/`
+3. Implement the required methods in the wallet service or create a new service
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is [MIT licensed](LICENSE).
